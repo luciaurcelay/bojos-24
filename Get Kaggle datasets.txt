@@ -1,0 +1,24 @@
+Install kaggle api:
+
+https://www.kaggle.com/docs/api#getting-started-installation-&-authentication
+
+Download from terminal using: 
+* kaggle datasets download -d gmorinan/memes-classified-and-labelled 
+* kaggle datasets download -d pmigdal/alien-vs-predator-images
+* kaggle datasets download -d artembystrov/muffinorchihuaha
+* kaggle datasets download -d ashishsaxena2209/animal-image-datasetdog-cat-and-panda
+
+The datasets where all put in format: 
+
+```
+train/
+  - clas_1/
+      - img_1.jpg
+	...
+validation/
+  - clas_1/
+      - img_1.jpg
+	...
+```
+
+All datasets are saved in: /gpfs/projects/bsc70/bojos
