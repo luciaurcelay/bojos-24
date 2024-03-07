@@ -1,7 +1,4 @@
 #!/bin/bash
-
-cd ~
-cd bojos-notebooks
 SUBMITTED=$(sbatch deep-learning-launcher.sh)
 SPID=$(echo ${SUBMITTED} | tr -s ' ' | cut -d ' ' -f 4)
 RUNNING=$(squeue | grep ${SPID} | tr -s ' ' | cut -d ' ' -f 6)
@@ -13,6 +10,7 @@ do
   RUNNING=$(squeue | grep ${SPID} | tr -s ' ' | cut -d ' ' -f 6)
 done
 
-echo "Jupyter notebook server up. Preparing cluster port for SSH tunneling..."
-sleep 10
-./expose-jupyter.sh
+MYUSER=$(whoami)
+PORT=${MYUSER:(-3)}
+HOST=$(squeue | tail -n 1 | awk '{print $NF}')
+echo "Jupyter notebook server up at port $PORT and host $HOST"

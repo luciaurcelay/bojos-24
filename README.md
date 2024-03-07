@@ -1,84 +1,100 @@
-﻿# Notebooks d'IA per Bojos per la Supercomputació
+﻿# Cuadernos de IA para Bojos per la Supercomputació 2024
 
-El format amb el que farem les sessions serà el de Jupyter notebooks, que són una eina còmoda
-i àgil per a fer exploracions de dades i proves ràpides d'implementació amb Python.
+El formato con el que realizaremos las sesiones será el de Jupyter notebooks, que son una herramienta cómoda
+y ágil para realizar exploraciones de datos y pruebas rápidas de implementación con Python.
 
-Hi ha dos maneres d'executar els notebooks que us passem: en local (si teniu prou potència
-de computació) o en remot (en el nostre cluster). Us recomanem que mentre tingueu les comptes
-d'usuari ho feu en remot.
+Hay dos maneras de ejecutar los notebooks que le pasamos: en local (si tiene suficiente potencia
+de computación) o en remoto (en nuestro cluster). Recomendamos que mientras tenga las cuentas
+de usuario se haga en remoto.
 
-## En remot
+## En remoto
 
-Per poder executar els notebooks directament dins del cluster i, per tant,
-aprofitant la infraestructura HPC, cal utilitzar una terminal. 
+Para poder ejecutar los notebooks directamente dentro del cluster y, por tanto,
+aprovechando la infraestructura HPC, es necesario utilizar una terminal.
 
-En primer lloc, vinculem el port de Marenostrum a un port del vostre ordinador a través d'una connexió SSH. On hi ha XXX heu de posar el vostre nom d’usuari al cluster. 
-
-```bash
-sh run_local.sh XXX 
-```
-
-Tot seguit us demanarà la vostra contrasenya (c4cdys.XXX). Assegureu-vos que l'usuari i la contrasenya són els correctes.
+En primer lugar, **nos conectamos al Marenostrum a través de SSH**, ejecutando la siguiente orden (donde `XXX` son los números concretos del usuario):
 
 ```bash
-Your user is nct01XXX
-Password:
+ssh nct01XXX@mn1.bsc.es
 ```
 
-En segon lloc, iniciarem el servidor Jupyter i exposarem el port d'aquest servidor dins de l'ordinador Marenostrum.
+Acto seguido os pedirá la contraseña. Cuando estéis dentro tendréis que moveros a la carpeta de este taller utilizando:
+
+```bash
+cd bojos-ai
+```
+
+Reservamos un nodo del Marenostrum ejecutando el siguiente script:
+
+```bash
+./remote_server.sh
+```
+
+Os saldrá una salida como la siguiente:
+
+```
+Jupyter notebook server still not up. Waiting 10 seconds more...
+Jupyter notebook server up at port PORT and host HOST
+```
+
+donde `PORT` son los 3 dígitos últimos de vuestro usuario (`XXX`) y `HOST` es el nodo que se os ha asignado. Estos dos valores son **muy importantes para el siguiente paso**.
+
+
+En segundo lugar, descargamos el código en nuestro ordenador:
+
+```bash
+git clone https://github.com/luciaurcelay/bojos-24
+```
+
+
+A continuación tenemos que exponer el servidor Jupyter ejecutado en el nodo del Marenostrum a nuestro ordenador, lo que se hace ejecutando el siguiente script **en nuestro ordenador**, donde los valores `PORT` y `HOST` los copiamos del apartado anterior:
 
 
 ```bash
-bojos-notebooks/notebook-server.sh
+./local_serve.sh PORT HOST
 ```
 
-Si tot va bé, hauríeu de tenir un missatge com aquest:
+A continuación puedes acceder a la web de Jupyter vía [http://localhost:55XXX](http://localhost:55XXX).
+La contraseña es `bojos`. donde `XXX` es el valor de `PORT`.
 
-```bash
-Connection successful!
-```
-
-A continuació podeu accedir a la web de Jupyter via [http://localhost:55XXX](http://localhost:55).
-La contrasenya és `bojos`.
-
-**No tanqueu la terminal.**
+**No cerréis la terminal.**
 
 ## En local
 
-### Descarregar el codi
+### Descargar el código
 
-Hi ha dos opcions de descarregar el codi:
+Hay dos opciones de descargar el código:
 
- * Usant git
+ * Usando git
 
 ```bash
-git clone https://gitlab.hpai.bsc.es/courses/bojos-notebooks.git
+git clone https://github.com/luciaurcelay/bojos-24
 ```
 
- * Descarregant el fitxer .zip
+ * Descargando el archivo .zip
 
-L'enllaç és https://gitlab.hpai.bsc.es/courses/bojos-notebooks/-/archive/master/bojos-notebooks-master.zip
+El enlace es https://github.com/luciaurcelay/bojos-24/archive/refs/heads/main.zip
 
 ### Preparar el sistema
 
-Heu d'instal-lar certs paquets al vostre sistema python.
+Debe instalar ciertos paquetes en su sistema python.
 
-Si teniu Conda instal-lat:
+Si tenéis Conda instalado:
 
 ```bash
 conda install keras jupyter scikit-learn seaborn keras tensorflow matplotlib numpy pandas scipy
 ```
 
-Si no teniu Conda:
+Si no tenéis Conda:
 
 ```bash
-pip install keras jupyter scikit-learn seaborn keras tensorflow matplotlib numpy pandas scipy
+pip3 install keras jupyter scikit-learn seaborn keras tensorflow matplotlib numpy pandas scipy
 ```
 
 ### Iniciar el servidor
 
-```hbash
+```bash
 jupyter notebook
 ```
 
-La pàgina web dels notebooks hauria d'obrir-se automàticament en el vostre navegador per defecte.
+La página web de los notebooks debería abrirse automáticamente en su navegador por defecto.
