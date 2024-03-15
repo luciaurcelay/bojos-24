@@ -44,6 +44,7 @@ En segundo lugar, descargamos el código en nuestro ordenador:
 
 ```bash
 git clone https://github.com/luciaurcelay/bojos-24
+cd bojos-24
 ```
 
 
